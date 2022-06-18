@@ -2,7 +2,7 @@
   "domain": "hass-ubibot",
   "name": "Ubibot",
   "config_flow": true,
-  "documentation": "https://github.com/dannytsang",
+  "documentation": "https://github.com/dannytsang/HASS-ubibot",
   "requirements": [],
   "ssdp": [],
   "zeroconf": [],
