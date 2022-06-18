@@ -14,17 +14,6 @@ from .controller import Controller
 
 _LOGGER = logging.getLogger(__name__)
 
-# This is the schema that used to display the UI to the user. This simple
-# schema has a single required host field, but it could include a number of fields
-# such as username, password etc. See other components in the HA core code for
-# further examples.
-# Note the input displayed to the user will be translated. See the
-# translations/<lang>.json file and strings.json. See here for further information:
-# https://developers.home-assistant.io/docs/config_entries_config_flow_handler/#translations
-# At the time of writing I found the translations created by the scaffold didn't
-# quite work as documented and always gave me the "Lokalise key references" string
-# (in square brackets), rather than the actual translated value. I did not attempt to
-# figure this out or look further into it.
 DATA_SCHEMA = vol.Schema({("api_key"): str})
 
 
@@ -35,11 +24,8 @@ async def validate_input(hass: HomeAssistant, data: dict) -> dict[str, Any]:
     """
     # Validate the data can be used to set up a connection.
 
-    # This is a simple example to show an error in the UI for a short hostname
-    # The exceptions are defined at the end of this file, and are used in the
-    # `async_step_user` method below.
     if len(data["api_key"]) < 10:
-        raise InvalidHost
+        raise InvalidApiKey
 
     controller = Controller(hass, data["api_key"])
     # The dummy hub provides a `test_connection` method to ensure it's working
@@ -65,7 +51,7 @@ async def validate_input(hass: HomeAssistant, data: dict) -> dict[str, Any]:
     # "Title" is what is displayed to the user for this hub device
     # It is stored internally in HA as part of the device config.
     # See `async_step_user` below for how this is used
-    return {"title": data["api_key"]}
+    return {"title": data["api_key"][-4:]}
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -89,12 +75,12 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 return self.async_create_entry(title=info["title"], data=user_input)
             except CannotConnect:
                 errors["base"] = "cannot_connect"
-            except InvalidHost:
+            except InvalidApiKey:
                 # The error string is set here, and should be translated.
                 # This example does not currently cover translations, see the
                 # comments on `DATA_SCHEMA` for further details.
                 # Set the error on the `host` field, not the entire form.
-                errors["host"] = "cannot_connect"
+                errors["api_key"] = "cannot_connect"
             except Exception:  # pylint: disable=broad-except
                 _LOGGER.exception("Unexpected exception")
                 errors["base"] = "unknown"
@@ -109,5 +95,5 @@ class CannotConnect(exceptions.HomeAssistantError):
     """Error to indicate we cannot connect."""
 
 
-class InvalidHost(exceptions.HomeAssistantError):
-    """Error to indicate there is an invalid hostname."""
+class InvalidApiKey(exceptions.HomeAssistantError):
+    """Error to indicate there is an invalid API key."""
