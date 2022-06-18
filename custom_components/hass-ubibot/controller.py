@@ -20,18 +20,23 @@ class Controller:
         self._api_key = api_key
         self._hass = hass
         self.channels = [
-            Channel(f"{self._id}_1", f"{self._name} 1", self),
-            Channel(f"{self._id}_2", f"{self._name} 2", self),
-            Channel(f"{self._id}_3", f"{self._name} 3", self),
+            Channel(f"ubibot_1", f"1", self),
+            Channel(f"ubibot_2", f"2", self),
+            Channel(f"ubibot_3", f"3", self)
         ]
         self.online = True
+    
+    async def test_connection(self) -> bool:
+        """Test connectivity to the Dummy hub is OK."""
+        await asyncio.sleep(1)
+        return True
 
 
 class Channel:
     """Channel which represents a Ubibot device."""
 
     def __init__(self, channel_id: str, name: str, controller: Controller) -> None:
-        """Init dummy roller."""
+        """Init channel."""
         self._id = channel_id
         self._name = name
         self.controller = controller
@@ -59,3 +64,13 @@ class Channel:
     def online(self) -> float:
         """Channel is online."""
         return True
+
+    @property
+    def battery_level(self) -> int:
+        """Battery level as a percentage."""
+        return random.randint(0, 100)
+    
+    @property
+    def illuminance(self) -> int:
+        """Return a sample illuminance in lux."""
+        return random.randint(0, 500)
