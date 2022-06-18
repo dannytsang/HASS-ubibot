@@ -19,12 +19,10 @@ class Controller:
         """Init dummy channel device."""
         self._api_key = api_key
         self._hass = hass
-        self._name = host
-        self._id = host.lower()
-        self.rollers = [
-            Roller(f"{self._id}_1", f"{self._name} 1", self),
-            Roller(f"{self._id}_2", f"{self._name} 2", self),
-            Roller(f"{self._id}_3", f"{self._name} 3", self),
+        self.channels = [
+            Channel(f"{self._id}_1", f"{self._name} 1", self),
+            Channel(f"{self._id}_2", f"{self._name} 2", self),
+            Channel(f"{self._id}_3", f"{self._name} 3", self),
         ]
         self.online = True
 
