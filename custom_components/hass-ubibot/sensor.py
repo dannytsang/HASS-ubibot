@@ -36,7 +36,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 class SensorBase(Entity):
     """Base representation of channel."""
 
-    should_poll = False
+    should_poll = True
 
     def __init__(self, channel):
         """Initialize the sensor."""
