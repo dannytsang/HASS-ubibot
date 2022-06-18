@@ -1,0 +1,14 @@
+{
+  "domain": "hass-ubibot",
+  "name": "Ubibot",
+  "config_flow": true,
+  "documentation": "https://github.com/dannytsang",
+  "requirements": [],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": ["@dannytsang"],
+  "iot_class": "cloud_poll",
+  "version": "0.0.1"
+}
