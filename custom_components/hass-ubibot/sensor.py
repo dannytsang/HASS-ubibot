@@ -23,7 +23,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     controller = hass.data[DOMAIN][config_entry.entry_id]
 
     new_devices = []
-    for channel in hub.controllers:
+    for channel in controller.channels:
         new_devices.append(BatterySensor(channel))
         new_devices.append(IlluminanceSensor(channel))
     if new_devices:
@@ -55,8 +55,8 @@ class SensorBase(Entity):
     # If an entity is offline (return False), the UI will refelect this.
     @property
     def available(self) -> bool:
-        """Return True if channel and hub is available."""
-        return self._channel.online and self._channel.hub.online
+        """Return True if channel and controller is available."""
+        return self._channel.online and self._channel.controller.online
 
     async def async_added_to_hass(self):
         """Run when this Entity has been added to HA."""
