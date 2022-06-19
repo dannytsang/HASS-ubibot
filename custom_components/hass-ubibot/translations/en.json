@@ -1,0 +1,17 @@
+{
+  "config": {
+      "abort": {
+          "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+      },
+      "error": {
+          "unknown": "[%key:common::config_flow::error::unknown%]"
+      },
+      "step": {
+          "user": {
+              "data": {
+                  "API key": "[%key:common::config_flow::data::api_key%]"
+              }
+          }
+      }
+ }
+}
