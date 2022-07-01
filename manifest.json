@@ -3,13 +3,13 @@
   "name": "Ubibot",
   "config_flow": true,
   "documentation": "https://github.com/dannytsang/HASS-ubibot",
-  "requirements": [],
+  "requirements": [
+    "pyubibot==0.0.3"
+  ],
   "ssdp": [],
   "zeroconf": [],
   "homekit": {},
-  "dependencies": [
-    "pyubibot==0.0.3"
-  ],
+  "dependencies": [],
   "codeowners": ["@dannytsang"],
   "iot_class": "cloud_polling",
   "version": "0.0.1"

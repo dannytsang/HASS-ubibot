@@ -1,1 +1,1 @@
-pyubibot==0.0.2
+pyubibot==0.0.3
